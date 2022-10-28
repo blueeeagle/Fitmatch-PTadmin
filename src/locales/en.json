@@ -1,0 +1,25 @@
+{
+  "athletes": "athletes",
+  "courses": "courses",
+  "exercises": "exercises",
+  "logout": "logout",
+  "athletes_list": "athletes list",
+  "years": "years",
+  "last_session": "last session",
+  "sessions_remained": "sessions remained",
+  "sex": "sex",
+  "level": "level",
+  "start_date": "start date",
+  "weight": "weight",
+  "objective": "objective",
+  "training_type": "training type",
+  "functional": "functional",
+  "bodybuilding": "bodybuilding",
+  "intensity_technique": "intensity technique",
+  "area": "area",
+  "see_favorites": "see favorites",
+  "see_anamnesis": "see anamnesis",
+  "add": "add",
+  "series": "series"
+
+}
