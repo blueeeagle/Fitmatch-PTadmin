@@ -1,7 +1,7 @@
 <template >
     <div class="athletes-list">
         <ul>
-            <li v-for="athlete in athletes" >
+            <li v-for="athlete in athletes"  @click="onSelectList(athlete)"  >
                 <Avatar :avatarSize="'small'" :imageUrl="athlete.profilepic" :avatarText="athlete.name" /> <span class="ms-2" >{{athlete.name}}</span>
             </li>
         </ul>
@@ -12,8 +12,8 @@ import { getAthletes } from '@/services/AthletesService.js';
 import Avatar from '@/components/shared/Avatar.vue';
 
 export default {
-
     name: 'AthletesList',
+    emits: ["onAthleteSelect"],
     components: {
         Avatar
     },
@@ -30,6 +30,9 @@ export default {
             }
             if (result.success) this.athletes = result.data;
             console.log(this.athletes )
+        },
+        onSelectList(athlete) {
+            this.$emit("onAthleteSelect", athlete)
         }
     },  
     mounted() {

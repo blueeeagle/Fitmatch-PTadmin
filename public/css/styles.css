@@ -46,13 +46,24 @@
   background: transparent;
 }
 
+
+/* Form required astreic */
+.form-label.required::after {
+  content: '*';
+  color: var(--bs-red);
+  margin-left: 5px;
+}
 /* Form check */
 .form-check-input {
   width: 1.2em !important;
   height: 1.2em !important;
   margin-top: 0em !important;
 }
-  
+
+/* First letter cap  */
+.text-transform-start::first-letter {
+  text-transform: uppercase;
+}
 /* Position absolute center */
 .ps-abs-center {
     position: absolute;
@@ -148,4 +159,9 @@
 .spinner .spinner-min, .spinner .spinner-inc {
   cursor: pointer;
   color: var(--bs-primary);
+}
+
+/* btn custom style */
+.btn::first-letter {
+  text-transform: uppercase;
 }

@@ -20,5 +20,24 @@
     "see_favorites": "vedi preferiti",
     "see_anamnesis": "vedi anamnesi",
     "add": "aggiungi",
-    "series": "serie"
+    "series": "serie",
+    "close": "chiudi",
+    "cancel": "annulla",
+    "delete": "elimina",
+    "card_type": "tipologia scheda",
+    "assign": "assegna",
+    "assigned": "assegnata",
+    "not_assigned": "non assegnata",
+    "confirm": "confermare",
+    "duplicate": "duplicare",
+    "are you sure, you want to confirm ?": "sei sicuro, vuoi confermare?",
+    "do you want to delete the card?": "vuoi eliminare la scheda?",
+    "the card has been removed": "las  scheda è stata eliminata",
+    "do you want to duplicate the card?": "vuoi duplicare la scheda?",
+    "the card has been duplicated": "la carta è stata duplicata",
+    "card_assignment": "assegnazione scheda",
+    "athlete_name" : "nome atleta",
+    "select":"seleziona",
+    "see_them_all": "vedi tutti"
+
 }

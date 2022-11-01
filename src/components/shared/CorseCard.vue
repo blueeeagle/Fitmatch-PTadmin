@@ -7,14 +7,23 @@
         <div class="training-sessions">00 training sessions</div>
 
         <div class="course-actions">
-            <a class="course-actions-btn delete"><i class="bi bi-trash"></i></a>
-            <a class="course-actions-btn copy" ><i class="bi bi-back"></i> </a>
+            <a class="course-actions-btn delete" @click="onDeleteClick()" ><i class="bi bi-trash"></i></a>
+            <a class="course-actions-btn copy" @click="onDuplicateClick()"  ><i class="bi bi-back"></i> </a>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'CourseCard'
+    name: 'CourseCard',
+    emits: ['delete', 'duplicate'],
+    methods: {
+        onDeleteClick() {
+            this.$emit('delete')
+        },
+        onDuplicateClick() {
+            this.$emit('duplicate')
+        }
+    }
 }
 </script>
 <style lang="scss">
@@ -27,7 +36,7 @@ export default {
         & .course-date {
             padding: 0 20px;
             font-size: .8em;
-            font-weight: lighter;
+            font-weight: light;
         }
 
         & .course-name {

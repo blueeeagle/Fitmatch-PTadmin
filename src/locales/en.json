@@ -20,6 +20,23 @@
   "see_favorites": "see favorites",
   "see_anamnesis": "see anamnesis",
   "add": "add",
-  "series": "series"
-
+  "series": "series",
+  "close": "close",
+  "cancel": "cancel",
+  "delete": "delete",
+  "card_type": "card type",
+  "assign": "assign",
+  "assigned": "assigned",
+  "not_assigned": "non assigned",
+  "confirm": "confirm",
+  "duplicate": "duplicate",
+  "are you sure, you want to confirm ?": "are you sure, you want to confirm ?",
+  "do you want to delete the card?": "do you want to delete the card?",
+  "the card has been removed": "the card has been removed",
+  "do you want to duplicate the card?": "do you want to duplicate the card?",
+  "the card has been duplicated": "the card has been duplicated",
+  "card_assignment": "card assignment",
+  "athlete_name": "athlete name",
+  "select": "select",
+  "see_them_all": "see them all"
 }

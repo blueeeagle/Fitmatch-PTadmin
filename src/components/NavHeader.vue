@@ -20,11 +20,11 @@
 
                 <div class="dropdown nav-link position-relative">
 
-                    <a class="btn-icon dropdown-toggle no-caret" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a id="profile" class="btn-icon dropdown-toggle no-caret" role="button" aria-expanded="false"  @click="toggleProfileMenu()" >
                         <i class="bi bi-person"></i>
                     </a>
 
-                    <ul class="dropdown-menu language-menu">
+                    <ul id="profileMenu" class="dropdown-menu language-menu">
                         <li>
                             <a class="dropdown-item" @click="setLanguage('it')" >
                                 <span class="fw-semibold" >
@@ -59,14 +59,27 @@
     </nav>
 </template>
 <script>
+import { Dropdown } from 'bootstrap';
+import * as $ from 'jquery';
+
 export default {
     name: 'NavHeader',
+    data() {
+        return {
+            dropdownProfileMenuRef: null
+        }
+    },
     methods: {
         setLanguage(lang) {
             this.$i18n.locale = lang
+        },
+        toggleProfileMenu() {
+            this.dropdownProfileMenuRef.toggle();
+            $('#profile').toggleClass('highlight')
         }
     },
     mounted() {
+        this.dropdownProfileMenuRef = new Dropdown('#profileMenu');
     }
 }
 </script>
@@ -124,8 +137,11 @@ export default {
                     margin-right: 10%;
                 }
 
-                &:hover , &.router-link-active {
+                &:hover , &.router-link-active, .highlight {
                     color: var(--app-color-primary);
+
+                }
+                &.router-link-active, .highlight  {
                     font-weight: 700;
 
                 }
@@ -144,7 +160,7 @@ export default {
                     
                     &::before {
                         content: "";
-                        border-bottom: 10px solid #fff;
+                        border-bottom: 11px solid #fff;
                         border-right: 10px solid transparent;
                         border-left: 10px solid transparent;
                         position: absolute;
