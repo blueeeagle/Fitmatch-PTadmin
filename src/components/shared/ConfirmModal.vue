@@ -13,10 +13,10 @@
                         </h5>
 
                         <div class="buttons">
-                            <button class="btn btn-sm btn-primary me-3"  @click="onCancel()" >
+                            <button  type="button" class="btn btn-sm btn-primary me-3"  @click="onCancel()" >
                                 <slot name="cancelBtnText" >{{$t('cancel')}} </slot> 
                             </button>
-                            <button class="btn btn-sm btn-outline-danger" @click="onConfirm()" >
+                            <button type="button" class="btn btn-sm btn-outline-danger" @click="onConfirm()" >
                                 <slot name="confirmBtnText" >{{$t('confirm')}} </slot> 
                             </button>
                         </div>

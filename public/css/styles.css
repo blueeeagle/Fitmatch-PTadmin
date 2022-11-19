@@ -7,7 +7,7 @@
     --bs-purple-rgb: 111, 66, 193;
     --bs-violet: #3A0CA3;
     --bs-violet-rgb: 58, 12, 163;
-
+    --bs-purple: #7209B7;
 }
 
 /* custom scrolbar */
@@ -48,7 +48,7 @@
 
 
 /* Form required astreic */
-.form-label.required::after {
+.required::after {
   content: '*';
   color: var(--bs-red);
   margin-left: 5px;
@@ -62,7 +62,7 @@
 
 /* First letter cap  */
 .text-transform-start::first-letter {
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 /* Position absolute center */
 .ps-abs-center {
@@ -101,6 +101,12 @@
     border-left: none !important;
 }
 
+.form-control.borderless {
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
 
 /* common custom class */
 .bg-grey-100 {
@@ -114,8 +120,15 @@
     color: var(--app-color-primary);
 }
 
+.purple-color {
+  color: var(--bs-purple);
+}
+
 .fs-small {
     font-size: .8em;
+}
+.fs-smaller {
+  font-size: smaller !important;
 }
 
 /* custom dropdown */
@@ -164,4 +177,24 @@
 /* btn custom style */
 .btn::first-letter {
   text-transform: uppercase;
+}
+
+.btn.btn-app-color {
+  background-color: var(--app-color-primary);
+  color: var(--bs-white);
+}
+
+.anchor-btn {
+  font-weight: 700;
+  cursor: pointer;
+}
+.anchor-btn:first-letter {
+  text-transform: uppercase !important;
+}
+
+
+
+/* Modal backdrop */
+.modal {
+  background-color: rgba(255, 255, 255 , 0.9) !important
 }

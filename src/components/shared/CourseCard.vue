@@ -53,7 +53,10 @@ export default {
             padding: 10px 20px;
             font-weight: 700;
             color: var(--bs-violet);
-            background-color: rgba(var(--bs-violet-rgb), .1);
+            background-color: var(--bs-gray-100);
+            border-bottom: 1px solid var(--bs-gray-400);
+            border-top: 1px solid var(--bs-gray-400);
+
         }
 
         & .course-actions {

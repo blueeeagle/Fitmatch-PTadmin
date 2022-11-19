@@ -34,13 +34,13 @@
             </div>
 
             <div class="filter-bottom-fixed d-grid gap-2">
-                <button class="btn btn-primary">{{$t('see_favorites')}}</button>
-                <button class="btn btn-outline-primary">{{$t('see_anamnesis')}}</button>
+                <button type="button" class="btn btn-primary text-nowrap ">{{$t('see_favorites')}}</button>
+                <button type="button" class="btn btn-outline-primary text-nowrap ">{{$t('see_anamnesis')}}</button>
             </div>
 
         </div>
         <div class="splitlayout-2 exercises-list" >
-            <div class="exercises-list-item border-bottom "  v-for="i in 10" >
+            <div class="exercises-list-item border-bottom "  v-for="i in 10"   :class="{'selected': i == 1}" >
                <div class="exercises-list-item_detail">
                     <h6 class="item-name">Exercise name</h6>
                     <p class="item-description" >
@@ -61,9 +61,13 @@
                                 <a class="spinner-inc  text-black" ><i class="bi bi-plus-circle"></i></a>
                             </span>
                         </div>
-                        <a><i class="bi bi-heart"></i></a>
+                        <a>
+                            <i v-if="i == 1" class="bi bi-heart-fill app-color"></i>
+                            <i v-else class="bi bi-heart"></i>
+
+                        </a>
                     </div>
-                    <button  class="btn btn-outline-primary add-btn"><i class="bi bi-plus"></i> {{$t('add')}}</button>
+                    <button  type="button" class="btn add-btn" :class="i == 1 ? 'btn-danger text-white' : 'btn-outline-primary '" ><i v-if="i != 1" class="bi bi-plus"></i> {{i == 1  ? $t('added') : $t('add')}}</button>
                 </div>
             </div>
         </div>
@@ -130,7 +134,9 @@ export default {
                 padding: 0 20px;
                 & .btn {
                     text-transform: capitalize;
-                    width: 50%;
+                    min-width: 50%;
+                    max-width: 80%;
+                    width: auto;
                 }
             }
         }
@@ -141,6 +147,18 @@ export default {
             &-item {
                 display: flex;
                 flex-direction: row;
+
+                &.selected {
+                    & .item-name {
+                        color: var(--app-color-primary);
+                        &::before {
+                            content: '\F272';
+                            font-family: 'bootstrap-icons';
+                            vertical-align: -16%;
+                            margin-right: 10px;
+                        }
+                    }
+                }
 
                 &_detail, &_video, &_actions {
                     width: 33%;

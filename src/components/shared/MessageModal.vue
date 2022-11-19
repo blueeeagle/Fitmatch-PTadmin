@@ -13,7 +13,7 @@
                         </h5>
 
                         <div class="buttons">
-                            <button class="btn btn-sm btn-primary me-3"  @click="onClose()" >{{$t('close')}}</button>
+                            <button type="button" class="btn btn-sm btn-primary me-3"  @click="onClose()" >{{$t('close')}}</button>
                         </div>
                     </div>
 

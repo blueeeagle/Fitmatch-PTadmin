@@ -5,6 +5,7 @@ import Page404View from '@/views/Page404View.vue'
 import AthletesView from '@/views/AthletesView.vue'
 import CoursesView from '@/views/CoursesView.vue'
 import ExercisesView from '@/views/ExercisesView.vue'
+import CourseDetailView from '@/views/CourseDetailView.vue'
 
 const routes = [
   {
@@ -21,7 +22,13 @@ const routes = [
       {
         path: '/courses',
         name: 'courses',
-        component: CoursesView
+        component: CoursesView,
+        exactly: false
+      },
+      {
+        path: '/courses/:id',
+        name: 'courses detail',
+        component: CourseDetailView,
       },
       {
         path: '/exercises',

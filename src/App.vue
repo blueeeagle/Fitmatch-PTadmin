@@ -8,6 +8,7 @@ $danger: #F72585;
 
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+@import 'v-calendar/dist/style.css';
 
 
 #app {

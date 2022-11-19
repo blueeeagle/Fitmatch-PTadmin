@@ -3,9 +3,9 @@
         <div class="container">
             
             <div class="left-container">
-                <a class="navbar-brand" href="#">
+                <router-link class="navbar-brand" to="/">
                     <img src="images/fitmatch-logo.png" alt="Fitmatch">
-                </a>
+                </router-link>
 
                 <div class="input-group suffix search-input">
                     <input type="text" class="form-control border-0 bg-grey-200" placeholder="Search" aria-label="Search" aria-describedby="search-addon">

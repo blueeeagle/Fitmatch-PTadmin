@@ -61,6 +61,9 @@
                                 <p class="athlete-card-data  " >Perdita di peso</p>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-4">
+                            <button class="btn btn-sm btn-primary w-100 " >{{$t('see_anamnesis')}}</button>
+                        </div>
 
                     </div>
                 </div>
@@ -79,7 +82,7 @@
 <script>
 import AthletesList from '@/components/AthletesList';
 import Avatar from '@/components/shared/Avatar.vue';
-import CourseCard from '@/components/shared/CorseCard.vue';
+import CourseCard from '@/components/shared/CourseCard.vue';
 
 export default {
     name: 'AthletesView',

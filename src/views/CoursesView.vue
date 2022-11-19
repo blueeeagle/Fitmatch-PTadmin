@@ -21,20 +21,25 @@
             </div>
         </div>
         <div class="splitlayout-2 " >
-            <div v-if="selectAthlete" class="athlete-info-head">
+            <div  class="athlete-info-head">
                 <div class="athlete-info" >
-                    <span class="athlete-info_detail" >
+                    <span v-if="selectAthlete" class="athlete-info_detail" >
                             <Avatar :avatarText="'N'" /> 
                             <h5 class="mb-0 ms-2 fw-bold" >Name Surname</h5>
                     </span>
-                    <a class="athlete-clear-btn text-transform-start "  @click="clearSelectedAthlete()" >{{$t('see_them_all')}}</a>
+                    <span v-else ></span>
+                    <span  class="athlete-info_action  text-transform-start" >
+                        <a v-if="selectAthlete" class="athlete-clear-btn me-3 "  @click="clearSelectedAthlete()" >{{$t('see_them_all')}}</a>
+                        <button type="button" class="btn btn-sm btn-primary" @click="createCardModalOpen()" >{{$t('create_card')}}</button>
+                    </span>
                 </div>
-                <hr />
+                <hr v-if="selectAthlete" />
             </div>
 
-            <div class="row courses-list"  :class="{'adjust-height': selectAthlete}" >
+            <div class="row courses-list adjust-height"  :class="{'mt-4': !selectAthlete}" >
+                
                 <div class="col-12 col-md-4" v-for="i in 50" >
-                    <CourseCard @delete="deleteCourseModalOpen" @duplicate="duplicateCourseModalOpen" />
+                    <CourseCard @delete="deleteCourseModalOpen" @duplicate="duplicateCourseModalOpen" @click="navigateToCourseDetail" />
                 </div>
             </div>
         </div>
@@ -63,7 +68,7 @@
     </ConfirmModal>
 
     <!-- Duplicate Assign Modal -->
-    <Modal  :showModal="duplicateCourseModalAssignVisibility" @onClose="duplicateCourseAssignModalClose">
+    <Modal  :showModal="duplicateCourseModalAssignVisibility"  @onClose="duplicateCourseAssignModalClose">
         <template v-slot:content>
            <div class="text-start">
                 <h5 class="message text-transform-start fw-bold">{{$t('card_assignment')}}</h5>
@@ -80,7 +85,7 @@
                 </div>
 
                 <div class="text-end mb-3" >
-                    <button class="btn btn-sm btn-primary px-5" @click="duplicateCourseAssignModalClose()" >{{$t('assign')}}</button>
+                    <button type="button" class="btn btn-sm btn-primary px-5" @click="duplicateCourseAssignModalClose()" >{{$t('assign')}}</button>
                 </div>
 
            </div>
@@ -89,25 +94,88 @@
     </Modal>
 
     <!-- Duplicate Success / Fail Modal -->
-    <MessageModal  :showModal="duplicateCourseModalMessageVisibility" @onClose="duplicateCourseMessageModalClose">
+    <MessageModal  :showModal="duplicateCourseModalMessageVisibility"  @onClose="duplicateCourseMessageModalClose">
       
         <template v-slot:message>{{$t('the card has been duplicated')}}</template>
 
     </MessageModal>
 
+    <!-- Create PT Card -->
+    <Modal :showModal="createCardModalVisibility" :modalDialogClass="'modal-lg'" @onClose="createCardModalClose" >
+        <template v-slot:content>
+            <div class="text-start row g-4">
+                <div class="col-12" >
+                    <input id="card_name" type="text" class="form-control form-control-lg  borderless fw-bold" :placeholder="$t('enter_title')" >
+                </div>
+                <div class="col-12 ">
+                    <h6 class="text-transform-start required">{{$t('card_type')}}</h6>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="create_card_assigned" value="false">
+                        <label class="form-check-label text-transform-start ms-1" for="create_card_assigned">{{$t('assigned')}}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="create_card_not_assigned" value="false">
+                        <label class="form-check-label text-transform-start ms-1" for="create_card_not_assigned">{{$t('not_assigned')}}</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="create_card_duration" class="form-label required  text-transform-start">{{$t('duration') + ' (' + $t('in_weeks')  + ')' }}</label>
+                    <select id="create_card_duration" class="form-select" aria-label="Default select">
+                        <option selected>{{$t('select')}}</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label for="create_card_athlete_name" class="form-label required  text-transform-start">{{$t('athlete_name')}}</label>
+                    <select id="create_card_athlete_name" class="form-select" aria-label="Default select">
+                        <option selected>{{$t('select')}}</option>
+                    </select>
+                </div>
+
+
+                <div class="col-12 col-md-6">
+                    
+                    <v-date-picker v-model="date">
+                        <template v-slot="{ inputValue, inputEvents }">
+                            <label for="create_card_date" class="form-label required  text-transform-start">{{$t('date') }}</label>
+                            <div class="input-group suffix">
+                                <input class="form-control" :placeholder="$t('select_date')" aria-label="select_date" aria-describedby="select_date" :value="inputValue" v-on="inputEvents" />
+                                <span class="input-group-text addon-suffix" id="select_date"><i class="bi bi-calendar-check"></i></span>
+                            </div>
+                        </template>
+                    </v-date-picker>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label for="create_card_objective" class="form-label required  text-transform-start">{{$t('objective')}}</label>
+                    <select id="create_card_objective" class="form-select" aria-label="Default select">
+                        <option selected>{{$t('select')}}</option>
+                    </select>
+                </div>
+                
+                <div class="col-12 text-end mb-3" >
+                    <button type="button" class="btn btn-sm btn-primary px-5" @click="createCardModalClose()" >{{$t('save')}}</button>
+                </div>
+            </div>
+           
+        </template>
+    </Modal>
+
 </template>
 <script>
 import AthletesList from '@/components/AthletesList.vue';
-import CourseCard from '@/components/shared/CorseCard.vue';
+import CourseCard from '@/components/shared/CourseCard.vue';
 import ConfirmModal from '@/components/shared/ConfirmModal.vue';
 import MessageModal from '@/components/shared/MessageModal.vue';
 import Modal from '@/components/shared/Modal.vue';
 import Avatar from '@/components/shared/Avatar.vue';
+import router from '@/router';
 
 export default {
     name: 'AthletesView',
     data() {
         return {
+            date: null,
             // Delete course 
             deleteCourseModalVisibility: false,
             deleteCourseModalMessageVisibility: false,
@@ -118,7 +186,10 @@ export default {
             duplicateCourseModalMessageVisibility: false,
 
             // Athlete List
-            selectAthlete: null
+            selectAthlete: null,
+
+            // Create PT 
+            createCardModalVisibility: false,
         }
     },   
     components: {
@@ -173,6 +244,19 @@ export default {
         },
         clearSelectedAthlete() {
             this.selectAthlete = null
+        },
+
+        // Create Card
+        createCardModalOpen() {
+            this.createCardModalVisibility = true;
+        },
+        createCardModalClose() {
+            this.createCardModalVisibility = false;
+        },
+
+        // Navigate to course detail
+        navigateToCourseDetail() {
+            router.push({path: 'courses/1'})
         }
     },
 }
@@ -269,10 +353,14 @@ export default {
                 padding: 30px 30px 0px 30px;
             }
 
-            & .athlete-clear-btn {
-                font-weight: 700;
-                cursor: pointer;
+            &_action {
+                .athlete-clear-btn {
+                    font-weight: 700;
+                    cursor: pointer;
+
+                }
             }
+            
         }
     }
 
