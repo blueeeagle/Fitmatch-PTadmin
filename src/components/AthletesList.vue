@@ -1,42 +1,40 @@
 <template >
     <div class="athletes-list">
         <ul>
-            <li v-for="athlete in athletes"  @click="onSelectList(athlete)"  >
-                <Avatar :avatarSize="'small'" :imageUrl="athlete.profilepic" :avatarText="athlete.name" /> <span class="ms-2" >{{athlete.name}}</span>
+            <li v-for="athlete in athletesList" :key="athlete.userId"  @click="onSelectList(athlete)"  :class="{'selected': selectedAthlete && selectedAthlete.id == athlete.userId}" >
+                <Avatar :avatarSize="'small'" :imageUrl="athlete.image" :avatarText="athlete.firstName" /> <span class="ms-2" >{{athlete.firstName}} &nbsp; {{athlete.lastName}}</span>
             </li>
         </ul>
     </div>
 </template>
 <script>
-import { getAthletes } from '@/services/AthletesService.js';
 import Avatar from '@/components/shared/Avatar.vue';
 
 export default {
     name: 'AthletesList',
+    props: {
+        athletes: [],
+        selectedAthlete: null
+    },
     emits: ["onAthleteSelect"],
     components: {
         Avatar
     },
     data() {
         return {
-            athletes: []
+            athletesList: []
         }
     },
     methods: {
-        async fetchAthletes() {
-            let result = await getAthletes();
-            for (let i = 0; i < 5; i++) {
-                result.data[i]['profilepic'] = `https://i.pravatar.cc/250?u=${result.data[i].email}`
-            }
-            if (result.success) this.athletes = result.data;
-            console.log(this.athletes )
-        },
+       
         onSelectList(athlete) {
             this.$emit("onAthleteSelect", athlete)
         }
     },  
-    mounted() {
-        this.fetchAthletes();
+    watch: {
+        athletes: function (newValue, oldValue) {
+            this.athletesList = newValue;
+       }
     }
 }   
 </script>

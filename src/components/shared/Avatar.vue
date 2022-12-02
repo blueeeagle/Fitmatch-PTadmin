@@ -1,7 +1,7 @@
 <template lang="">
     <div  class="avatar" :class="{'avatar-lg': avatarSize === 'large', 'avatar-sm': avatarSize === 'small' }"
         :style="{'height': sizeInPx, 'width': sizeInPx}"  >
-        <img v-if="imageUrl"  :src="imageUrl" :alt="avatarText">
+        <img v-if="imageUrl"  :src="imageUrl" :alt="avatarText" class="ps-abs-center">
         <p v-else class="avatar-name ps-abs-center" >{{avatarText ? avatarText[0] : 'NA'}}</p>
     </div>
 </template>

@@ -12,5 +12,11 @@ module.exports = defineConfig({
       compositionOnly: true,
       fullInstall: true
     }
+  },
+
+  devServer: {
+    proxy: process.env.VUE_APP_API_BASE_URI
+    
   }
+  
 })

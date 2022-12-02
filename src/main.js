@@ -3,7 +3,15 @@ import App from './App.vue'
 import router from './router'
 import i18n from './i18n'
 import VCalendar from 'v-calendar';
-// import "bootstrap/dist/css/bootstrap.min.css"
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 import "bootstrap/dist/js/bootstrap.min.js"
 
-createApp(App).use(i18n).use(VCalendar).use(router).mount('#app')
+// Notification options (default)
+const notificationOptions = {
+    transition: "Vue-Toastification__bounce",
+    maxToasts: 20,
+    newestOnTop: true
+};
+
+createApp(App).use(i18n).use(VCalendar).use(Toast, notificationOptions).use(router).mount('#app')

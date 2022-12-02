@@ -3,20 +3,20 @@
         <div class="splitlayout-1 athletes-list-container" >
             <h5 class="fw-bold text-capitalize" >{{$t('athletes_list')}}</h5>
             <hr/>
-            <AthletesList ></AthletesList>
+            <AthletesList :athletes="athletesList" @onAthleteSelect="onAthleteSelect"  :selectedAthlete="selectedAthlete" ></AthletesList>
         </div>
-        <div class="splitlayout-2 " >
+        <div v-if="selectedAthlete" class="splitlayout-2 " >
             <div class="row athlete">
                 <div class="col-sm-12 col-md-8 athlete-detail ">
                     <div class="athlete-name mb-3" > 
-                        <Avatar :avatarText="'N'" /> 
-                        <h5 class="mb-0 ms-2 fw-bold" >Name Surname</h5>
+                        <Avatar :avatarText="selectedAthlete.firstName" :imageUrl="selectedAthlete.image" /> 
+                        <h5 class="mb-0 ms-2 fw-bold" >{{selectedAthlete.firstName}} &nbsp; {{selectedAthlete.lastName}} </h5>
                     </div>
                     <div class="row g-3 athlete-cards" >
                         <div class="col-sm-12 col-md-4" >
                             <div class="card athlete-card ">
                                 <p class="athlete-card-title border-bottom">{{$t('years')}}</p>
-                                <p class="athlete-card-data  " >32</p>
+                                <p class="athlete-card-data  " >{{selectedAthlete.age || 'NA'}}</p>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -34,7 +34,7 @@
                         <div class="col-sm-12 col-md-4">
                             <div class="card athlete-card">
                                 <p class="athlete-card-title border-bottom">{{$t('sex')}}</p>
-                                <p class="athlete-card-data  " >Maschio</p>
+                                <p class="athlete-card-data  " >{{selectedAthlete.gender || 'NA'}}</p>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -83,6 +83,10 @@
 import AthletesList from '@/components/AthletesList';
 import Avatar from '@/components/shared/Avatar.vue';
 import CourseCard from '@/components/shared/CourseCard.vue';
+import { getAthletesByTrainerId, getAthletesDetailById } from '@/services/athletes.service';
+import { getLoggedUserDetail } from '@/services/user.service';
+import * as notify from '@/services/notification.service';
+import * as moment from 'moment';
 
 export default {
     name: 'AthletesView',
@@ -90,6 +94,33 @@ export default {
         AthletesList,
         Avatar,
         CourseCard
+    },
+    data() {
+        return {
+            loggedTrainer: null,
+            athletesList: [],
+            selectedAthlete: null
+        }
+    },
+    methods: {
+        async getAthletesList() {
+            const response = await getAthletesByTrainerId(this.loggedTrainer.id);
+            if (!response.success) return notify.error(response.message);
+            this.athletesList = response.data;
+        },
+
+        async onAthleteSelect(athlete) {
+            const response = await getAthletesDetailById(athlete.userId);
+            if (!response.success) return notify.error(response.message);
+            this.selectedAthlete = response.data;
+            this.selectedAthlete['age'] =  moment().diff(this.selectedAthlete.birthDate, 'years',false);
+            console.log(this.selectedAthlete)
+
+        }
+    },
+    mounted() {
+        this.loggedTrainer = getLoggedUserDetail();
+        this.getAthletesList();
     }
 }
 </script>

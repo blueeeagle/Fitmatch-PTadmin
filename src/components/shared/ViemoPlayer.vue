@@ -50,7 +50,8 @@ export default {
         playerInit() {
             const player = new Player('vimeo_'+this.modalId, {
                 id: 765630395,
-                // width: 640
+                width: 640,
+                // url: "https://onedrive.live.com/?authkey=%21AIRavOG5PgEPRCk&cid=7FDEF1FFB16F3AA8&id=7FDEF1FFB16F3AA8%21204&parId=7FDEF1FFB16F3AA8%21130&o=OneUp",
                 responsive: true
             });
         }

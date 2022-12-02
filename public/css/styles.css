@@ -198,3 +198,33 @@
 .modal {
   background-color: rgba(255, 255, 255 , 0.9) !important
 }
+
+
+/* Custom Toast */
+.Vue-Toastification__toast.custom-app-toast {
+  min-height:40px;
+  padding: 10px;
+  align-items: center;
+}
+.Vue-Toastification__toast.custom-app-toast .Vue-Toastification__icon {
+  height: 80%;
+}
+.Vue-Toastification__toast.custom-app-toast .Vue-Toastification__toast-body {
+  font-size: 0.8em;
+}
+.Vue-Toastification__toast.custom-app-toast.Vue-Toastification__toast--success {
+  background-color: #333333;
+  color: #4caf50;
+}
+.Vue-Toastification__toast.custom-app-toast.Vue-Toastification__toast--error {
+  background-color: #333333;
+  color: #ff5252;
+}
+.Vue-Toastification__toast.custom-app-toast.Vue-Toastification__toast--info {
+  background-color: #333333;
+  color: #2196f3;
+}
+.Vue-Toastification__toast.custom-app-toast.Vue-Toastification__toast--warning {
+  background-color: #333333;
+  color: #ffc107;
+}

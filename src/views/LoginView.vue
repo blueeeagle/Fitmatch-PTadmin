@@ -14,20 +14,23 @@
                     <div class="login-card_body">
                         <h5 class="login-form_title">Log in</h5>
 
-                        <form class="login-form">
-                            <input type="email" class="form-control form-control-lg border-0 mb-2" id="email" aria-describedby="Email" placeholder="Email" >
+                        <form class="login-form"  @submit.prevent="onLogin()" >
+                            <input type="email" class="form-control form-control-lg border-0 mb-2" id="email" aria-describedby="Email" placeholder="Email" v-model="loginForm.email" >
 
-                            <input type="password" class="form-control form-control-lg border-0 mb-2" id="password"  placeholder="Password" >
+                            <input :type="showPasswords ? 'text' : 'password'" class="form-control form-control-lg border-0 mb-2" id="password"  placeholder="Password" v-model="loginForm.password" >
 
                             <div class="mb-3 d-flex flex-direction-row justify-content-between">
                                 <span class="show-password-check" >
-                                    <input type="checkbox" class="form-check-input" id="showCheckup">
-                                    <label class="form-check-label ms-1" for="showCheckup">Show password</label>
+                                    <input type="checkbox" class="form-check-input" id="showCheckup"  v-model="showPasswords" >
+                                    <label class="form-check-label ms-1" for="showCheckup"  >Show password</label>
                                 </span>
 
                                 <a class="anchor-tag forgot-password">Forgot password?</a>
                             </div>
-                            <router-link tag="button" type="submit" class="btn btn-primary btn-lg w-100 fw-semibold mt-4 " to="/">Log in</router-link>
+                            <button tag="button" type="submit" class="btn btn-primary btn-lg w-100 fw-semibold mt-4 " :disabled="loginSubmitted" >
+                                <span v-if="loginSubmitted" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Log in
+                            </button>
                         </form>
                     </div>
                     <div class="login-card_footer">
@@ -43,8 +46,48 @@
     </div>
 </template>
 <script>
+
+import { login, logout, updateToken, updateLoggedUserDetail } from '@/services/user.service';
+import * as notify from '@/services/notification.service';
+
 export default {
-    name: "LoginView"
+    name: "LoginView",
+    data() {
+        return {
+            showPasswords: false,
+            loginSubmitted: false,
+            loginForm: {
+                email: '',
+                password: ''
+            }
+        }
+    },
+    methods: {
+        async onLogin() {
+
+            if (!this.loginForm.email || !this.loginForm.password) return notify.error('Email and password are required');
+            // API call
+            this.loginSubmitted = true;
+            const response = await login(this.loginForm); 
+            this.loginSubmitted = false;
+
+            if (!response.success) return notify.error(response.message);
+
+            // Update token & user data
+            updateToken(response.data.token); 
+            const userDetail = response.data;
+            delete userDetail.token;
+            updateLoggedUserDetail(userDetail);
+            notify.success(response.message);
+
+            // Redirect to home page
+            this.$router.push({ path: '/' });
+        }
+    },
+    mounted() {
+        logout();
+    }
+
 }
 </script>
 <style lang="scss">

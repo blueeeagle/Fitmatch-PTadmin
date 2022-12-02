@@ -7,6 +7,20 @@ import CoursesView from '@/views/CoursesView.vue'
 import ExercisesView from '@/views/ExercisesView.vue'
 import CourseDetailView from '@/views/CourseDetailView.vue'
 
+import { getToken } from '@/services/user.service';
+
+function isAuthenticated() {
+  return  !!getToken();
+}
+
+function authGaurd(to, from, next) {
+  if (isAuthenticated()) {
+    next()
+    return;
+  } else {
+    next('/login')
+  }
+}
 const routes = [
   {
     path: '/',
@@ -17,23 +31,30 @@ const routes = [
       {
         path: '/athletes',
         name: 'athletes',
-        component: AthletesView
+        component: AthletesView,
+        beforeEnter: authGaurd
+
       },
       {
         path: '/courses',
         name: 'courses',
         component: CoursesView,
-        exactly: false
+        beforeEnter: authGaurd
+
       },
       {
         path: '/courses/:id',
         name: 'courses detail',
         component: CourseDetailView,
+        beforeEnter: authGaurd
+
       },
       {
         path: '/exercises',
         name: 'exercises',
-        component: ExercisesView
+        component: ExercisesView,
+        beforeEnter: authGaurd
+
       }
     ]
   },
