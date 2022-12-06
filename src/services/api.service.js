@@ -18,7 +18,7 @@ function formatError(error) {
 }
 
 const api = axios.create({
-    baseURL: process.env.VUE_APP_API_PREFIX_URI,
+    baseURL: process.env.VUE_APP_API_BASE_URI + process.env.VUE_APP_API_PREFIX_URI,
     headers: {
         // "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
